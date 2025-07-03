@@ -1,0 +1,28 @@
+# Fichier de secrets - Le plus important !
+# Ne jamais envoyer ce fichier sur GitHub.
+.env
+
+# Dossiers de cache Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Dossiers d'environnement virtuel
+venv/
+env/
+.venv/
+*.venv
+
+# Fichiers de configuration des éditeurs
+.vscode/
+.idea/
+
+# Fichiers de build et de distribution
+build/
+dist/
+*.egg-info/
+
+# Fichiers de tests
+.pytest_cache/
+.coverage
