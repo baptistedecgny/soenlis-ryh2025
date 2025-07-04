@@ -4,7 +4,7 @@ import os
 # --- CONFIGURATION ---
 # Remplace la chaîne de caractères ci-dessous par ta véritable clé API Groq.
 # C'est la seule ligne que tu dois modifier.
-GROQ_API_KEY = "# pas partagé"
+GROQ_API_KEY = "# note share this key"
 
 # --- LA REQUÊTE ---
 # On prépare les informations pour l'envoi
