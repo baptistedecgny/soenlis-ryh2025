@@ -212,9 +212,8 @@ python app.py
 
 ## ⚡ Raise Your Hack Showcase
 
-```markdown
+
 ![Raise Your Hack Presentation Banner](https://www.google.com/url?sa=i&url=https%3A%2F%2Fcuriousrefuge.com%2Fall-events%2F%2Fraisesummit-raiseyourhack-2025&psig=AOvVaw2MUkyW4NMnpptIgm-RzHTQ&ust=1752043495058000&source=images&cd=vfe&opi=89978449&ved=0CBUQjRxqFwoTCIi_jePUrI4DFQAAAAAdAAAAABAE)
-```
 
 Soenlis was built from the ground up for the **Raise Your Hack 2025 hackathon**, showcasing how **AI + multi-agent systems + Coral Protocol** can revolutionize cybersecurity workflows.
 
