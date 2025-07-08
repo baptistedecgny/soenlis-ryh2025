@@ -43,7 +43,7 @@ Agents communicate via **Coral Protocol** for secure and decentralized orchestra
 
 ## 🌐 Web Interface
 
-![Web Interface Screenshot](.:assets/website.png)
+![Web Interface Screenshot](./assets/website.png)
 
 Soenlis provides a modern web UI for initiating scans and viewing results. Enter a URL and launch an audit instantly.
 
@@ -210,7 +210,7 @@ python app.py
 ## ⚡ Raise Your Hack Showcase
 
 
-![Raise Your Hack Presentation Banner](https://www.google.com/url?sa=i&url=https%3A%2F%2Fcuriousrefuge.com%2Fall-events%2F%2Fraisesummit-raiseyourhack-2025&psig=AOvVaw2MUkyW4NMnpptIgm-RzHTQ&ust=1752043495058000&source=images&cd=vfe&opi=89978449&ved=0CBUQjRxqFwoTCIi_jePUrI4DFQAAAAAdAAAAABAE)
+![Raise Your Hack Presentation Banner](./assets/ryh.png)
 
 Soenlis was built from the ground up for the **Raise Your Hack 2025 hackathon**, showcasing how **AI + multi-agent systems + Coral Protocol** can revolutionize cybersecurity workflows.
 
