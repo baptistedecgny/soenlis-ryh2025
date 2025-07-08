@@ -43,9 +43,7 @@ Agents communicate via **Coral Protocol** for secure and decentralized orchestra
 
 ## 🌐 Web Interface
 
-```markdown
 ![Web Interface Screenshot](.:assetst/website.png)
-```
 
 Soenlis provides a modern web UI for initiating scans and viewing results. Enter a URL and launch an audit instantly.
 
@@ -53,9 +51,8 @@ Soenlis provides a modern web UI for initiating scans and viewing results. Enter
 
 ## 📄 Sample HTML Audit Report
 
-```markdown
 ![Audit HTML Report Screenshot](./assets/rapport_html.PNG)
-```
+
 
 Each scan generates a professional HTML report summarizing:
 
