@@ -1,0 +1,13 @@
+Flask
+Flask-Cors
+python-dotenv
+rich
+langchain-mcp-adapters
+langchain-groq
+beautifulsoup4
+requests
+Wappalyzer
+python-json-logger # If you use it for structured logging
+pydantic # For your schemas
+uvicorn # If you run Flask with uvicorn (good for production)
+gunicorn # If you run Flask with gunicorn (good for production)

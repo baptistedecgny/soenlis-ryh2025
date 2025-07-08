@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soenlis - Multi-Agent & AI Web Security | Raise Your Hack 2025</title>
+    <meta name="description" content="Soenlis: Your intelligent web security scanner based on AI and a multi-agent architecture with Coral Protocol. Deployed on Vultr. Raise Your Hack 2025 Project.">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+    <style>
+        body { font-family: 'Inter', sans-serif; @apply bg-gray-900 text-gray-100; overflow-x: hidden; }
+        h1, h2, h3 { font-family: 'Montserrat', sans-serif; }
+        .gradient-text { background: linear-gradient(to right, #6366f1, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .scan-button { transition: all 0.3s ease; }
+        .scan-button:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(168, 85, 247, 0.4); } /* Adjusted for better visibility */
+
+        /* Custom animations for various elements */
+        @keyframes fadeInScaleUp {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .animate__fadeInScaleUp {
+            animation-name: fadeInScaleUp;
+            animation-duration: 1s;
+            animation-fill-mode: both;
+        }
+
+        @keyframes fadeInUpCustom {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate__fadeInUpCustom {
+            animation-name: fadeInUpCustom;
+            animation-duration: 0.9s;
+            animation-fill-mode: both;
+        }
+
+        @keyframes pulseBorder {
+            0% { border-color: #6366f1; }
+            50% { border-color: #a855f7; }
+            100% { border-color: #6366f1; }
+        }
+        .pulse-border {
+            animation: pulseBorder 3s infinite alternate;
+        }
+
+        @keyframes backgroundPan {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .animated-background {
+            background-size: 200% 200%;
+            animation: backgroundPan 10s linear infinite;
+        }
+
+        /* Animation delays for sequence - used with animate-on-scroll */
+        .animate-delay-0-5 { animation-delay: 0.5s; }
+        .animate-delay-1 { animation-delay: 1s; }
+        .animate-delay-1-5 { animation-delay: 1.5s; }
+        .animate-delay-2 { animation-delay: 2s; }
+        .animate-delay-2-5 { animation-delay: 2.5s; }
+        .animate-delay-3 { animation-delay: 3s; }
+        .animate-delay-3-5 { animation-delay: 3.5s; }
+        .animate-delay-4 { animation-delay: 4s; }
+        .animate-delay-4-5 { animation-delay: 4.5s; }
+        .animate-delay-5 { animation-delay: 5s; }
+        .animate-delay-5-5 { animation-delay: 5.5s; }
+        .animate-delay-6 { animation-delay: 6s; }
+
+
+        /* Line connecting agent blocks */
+        .agent-flow-line {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            background: linear-gradient(to bottom, #8b5cf6, #3b82f6); /* Purple to blue gradient */
+            z-index: 0;
+        }
+        /* Adjust line for smaller screens (column layout) */
+        @media (min-width: 768px) { /* md */
+            .agent-flow-line {
+                width: 100%;
+                height: 2px;
+                top: 50%;
+                left: 0;
+                transform: translateY(-50%);
+                background: linear-gradient(to right, #8b5cf6, #3b82f6);
+            }
+        }
+        /* FAQ specific styles */
+        .faq-item {
+            background-color: #1f2937; /* bg-gray-800 */
+            border: 1px solid #374151; /* border-gray-700 */
+            border-radius: 0.75rem; /* rounded-xl */
+            margin-bottom: 1rem;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        .faq-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.25rem 1.5rem;
+            cursor: pointer;
+            font-weight: 600; /* font-semibold */
+            color: #d1d5db; /* text-gray-200 */
+            transition: background-color 0.3s ease;
+        }
+        .faq-question:hover {
+            background-color: #374151; /* bg-gray-700 */
+        }
+        .faq-answer {
+            padding: 0 1.5rem 1.25rem 1.5rem;
+            color: #9ca3af; /* text-gray-400 */
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out, padding 0.5s ease-out;
+        }
+        .faq-answer p {
+            margin-bottom: 0.5rem;
+        }
+        .faq-answer strong {
+            color: #e5e7eb; /* text-gray-100 */
+        }
+        .faq-answer a {
+            color: #8b5cf6; /* purple-400 */
+            text-decoration: underline;
+        }
+        .faq-item.active .faq-answer {
+            max-height: 500px; /* Adjust as needed */
+            padding-top: 0.5rem;
+        }
+        .faq-toggle-icon {
+            transition: transform 0.3s ease;
+        }
+        .faq-item.active .faq-toggle-icon {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+
+    <header class="bg-gray-800 p-4 shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center">
+            <a href="#" class="text-3xl lg:text-4xl font-extrabold text-indigo-400 mb-2 md:mb-0 animate__animated animate__fadeInLeft">Soenlis<span class="text-purple-400">.ai</span></a>
+            <nav class="flex flex-wrap justify-center md:justify-end gap-x-6 gap-y-2 text-lg animate__animated animate__fadeInRight animate-delay-0-5">
+                <span class="text-purple-300 font-bold ml-4 border-l border-gray-600 pl-4">Raise Your Hack 2025</span>
+            </nav>
+        </div>
+    </header>
+
+    <main class="flex-grow">
+        <section class="relative bg-gray-900 text-center py-24 lg:py-32 overflow-hidden animated-background">
+            <div class="absolute inset-0 bg-cover bg-center opacity-10" style="background-image: url('https://source.unsplash.com/random/1920x1080?abstract-tech,cyber-security');"></div>
+            <div class="container mx-auto px-6 relative z-10">
+                <h1 class="text-5xl lg:text-7xl font-extrabold mb-6 leading-tight text-white animate__animated animate__fadeInDown animate-delay-0-5">
+                    Web Security Redefined. <br class="sm:hidden"> <span class="gradient-text">Scan in One Click.</span>
+                </h1>
+                <p class="text-xl lg:text-2xl text-gray-300 mb-12 max-w-4xl mx-auto animate__animated animate__fadeInUp animate-delay-1">
+                    Soenlis is our innovative project for <span class="font-bold text-purple-300">Raise Your Hack 2025</span>.
+                    Powered by a collaborative multi-agent architecture and advanced AI,
+                    we deliver professional security audits with unmatched precision.
+                </p>
+
+                <div class="max-w-3xl mx-auto bg-gray-800 p-8 md:p-10 rounded-xl shadow-2xl border border-indigo-700 pulse-border animate__animated animate__zoomIn animate-delay-1-5">
+                    <h2 class="text-3xl md:text-4xl font-bold text-white mb-6 animate__animated animate__fadeInUpCustom animate-delay-2">Launch an Instant Security Audit</h2>
+                    <div class="flex flex-col sm:flex-row gap-4 animate__animated animate__fadeInUpCustom animate-delay-2-5">
+                        <input
+                            type="url"
+                            id="scanUrlInput"
+                            placeholder="Enter URL to scan (e.g., https://raise.lablab.ai)"
+                            class="flex-grow p-4 rounded-lg bg-gray-700 border border-gray-600 focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50 text-white placeholder-gray-400 text-lg animate__animated animate__fadeInLeft animate-delay-3"
+                        >
+                        <button
+                            id="startScanButton"
+                            class="scan-button bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 px-8 rounded-lg transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-75 text-lg animate__animated animate__fadeInRight animate-delay-3-5"
+                        >
+                            Start Scan
+                        </button>
+                    </div>
+                    <p id="scanStatus" class="mt-4 text-left text-sm text-gray-400 animate__animated animate__fadeInUpCustom animate-delay-4"></p>
+
+                    <div id="scanResults" class="mt-8 text-left bg-gray-700/50 p-6 rounded-lg hidden animate__animated animate__fadeInUp border border-gray-600">
+                        <h3 class="text-xl font-bold text-white mb-4">Scan Completed!</h3>
+                        <div id="summaryContent" class="text-gray-300 text-base mb-6 border-l-2 border-purple-500 pl-4">
+                            </div>
+                        <div id="downloadButtonContainer">
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20 bg-gradient-to-br from-gray-900 to-gray-800 text-center relative overflow-hidden animate-on-scroll animate__fadeInUp">
+            <div class="absolute inset-0 z-0 opacity-10" style="background-image: url('https://source.unsplash.com/random/1920x1080?abstract-geometric,neon-lines'); filter: blur(2px) brightness(0.7);"></div>
+            <div class="container mx-auto px-6 relative z-10">
+                <h2 class="text-4xl lg:text-5xl font-extrabold mb-6 gradient-text animate__fadeInDown animate-delay-0-5">
+                    Soenlis: See it in Action!
+                </h2>
+                <p class="text-xl lg:text-2xl text-gray-300 mb-12 max-w-4xl mx-auto animate__fadeInUp animate-delay-1">
+                    Dive into a comprehensive live demonstration of Soenlis's intelligent web security capabilities, showcasing its unique multi-agent architecture and AI-powered insights.
+                </p>
+                <div class="max-w-5xl mx-auto bg-gray-900 bg-opacity-70 backdrop-blur-sm p-4 md:p-8 rounded-2xl shadow-glow border border-purple-600 transition-all duration-500 hover:shadow-purple-500/50 hover:border-purple-400 animate__fadeInScaleUp animate-delay-1-5">
+                    <div class="relative" style="padding-bottom: 56.25%; height: 0; overflow: hidden;">
+                        <iframe
+                            class="absolute top-0 left-0 w-full h-full rounded-xl transform transition-transform duration-300 hover:scale-[1.01]"
+                            src="http://googleusercontent.com/youtube.com/embed/dQw4w9WgXcQ"  title="Soenlis Project Presentation - Raise Your Hack 2025"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerpolicy="strict-origin-when-cross-origin"
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="py-20 bg-gray-900 text-center relative overflow-hidden animate-on-scroll animate__fadeInUp">
+            <div class="absolute inset-0 z-0 opacity-10" style="background-image: url('https://source.unsplash.com/random/1920x1080?workflow,process-flow'); filter: blur(3px) brightness(0.6);"></div>
+            <div class="container mx-auto px-6 relative z-10">
+                <h2 class="text-4xl lg:text-5xl font-extrabold mb-6 gradient-text animate__fadeInDown animate-delay-0-5">
+                    The Soenlis Audit Pipeline
+                </h2>
+                <p class="text-xl lg:text-2xl text-gray-300 mb-16 max-w-4xl mx-auto animate__fadeInUp animate-delay-1">
+                    Our intelligent scanning process leverages a streamlined, multi-stage pipeline to deliver accurate and comprehensive web security insights.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-12 max-w-6xl mx-auto">
+                    <div class="pipeline-card bg-gray-800 p-8 rounded-2xl shadow-2xl border border-blue-600 text-left animate__fadeInUpCustom animate-delay-1-5 transform hover:scale-105 transition-transform duration-300">
+                        <div class="text-5xl mb-4 text-blue-400 animate__bounceIn animate-delay-2">📊</div>
+                        <h3 class="text-2xl font-bold text-white mb-3">1. Data Collection & Recon</h3>
+                        <p class="text-gray-300 text-base leading-relaxed">
+                            The initial phase focuses on extensive data gathering: fetching target URL content, analyzing HTTP headers, and fingerprinting web technologies using advanced techniques.
+                        </p>
+                    </div>
+
+                    <div class="pipeline-card bg-gray-800 p-8 rounded-2xl shadow-2xl border border-purple-600 text-left animate__fadeInUpCustom animate-delay-2 transform hover:scale-105 transition-transform duration-300">
+                        <div class="text-5xl mb-4 text-purple-400 animate__bounceIn animate-delay-2-5">🤖</div>
+                        <h3 class="text-2xl font-bold text-white mb-3">2. AI Analysis & Vulnerability Mapping</h3>
+                        <p class="text-gray-300 text-base leading-relaxed">
+                            AI models (Llama 3.1, Groq) deeply analyze collected data for anomalies and unknown tech versions. Detected technologies are cross-referenced with CVE databases.
+                        </p>
+                    </div>
+
+                    <div class="pipeline-card bg-gray-800 p-8 rounded-2xl shadow-2xl border border-green-600 text-left animate__fadeInUpCustom animate-delay-2-5 transform hover:scale-105 transition-transform duration-300">
+                        <div class="text-5xl mb-4 text-green-400 animate__bounceIn animate-delay-3">📝</div>
+                        <h3 class="text-2xl font-bold text-white mb-3">3. Comprehensive Report Generation</h3>
+                        <p class="text-gray-300 text-base leading-relaxed">
+                            All findings, including identified vulnerabilities, security headers assessment, and remediation steps, are compiled into a professional, actionable HTML report.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="py-20 bg-gray-800 text-center relative overflow-hidden animate-on-scroll animate__fadeInUp">
+            <div class="absolute inset-0 z-0 opacity-10" style="background-image: url('https://source.unsplash.com/random/1920x1080?data-flow,abstract-network'); filter: blur(3px) brightness(0.6);"></div>
+            <div class="container mx-auto px-6 relative z-10">
+                <h2 class="text-4xl lg:text-5xl font-extrabold mb-6 gradient-text animate__fadeInDown animate-delay-0-5">
+                    The Soenlis Multi-Agent Architecture
+                </h2>
+                <p class="text-xl lg:text-2xl text-gray-300 mb-16 max-w-4xl mx-auto animate__fadeInUp animate-delay-1">
+                    At the heart of Soenlis lies a dynamic, collaborative system of specialized AI agents, orchestrated by <span class="font-bold text-purple-400">Coral Protocol</span>, to deliver unparalleled precision in web security audits.
+                </p>
+
+                <div class="relative flex flex-col md:flex-row items-center justify-center space-y-12 md:space-y-0 md:space-x-12 px-4 md:px-0">
+                    <div class="md:hidden agent-flow-line h-full w-0.5 absolute left-1/2 -translate-x-1/2 top-0 bottom-0" style="min-height: calc(100% - 24px); margin-top: 12px; margin-bottom: 12px;"></div>
+                    <div class="hidden md:block agent-flow-line w-full h-0.5 absolute top-1/2 -translate-y-1/2 left-0 right-0" style="min-width: calc(100% - 24px); margin-left: 12px; margin-right: 12px;"></div>
+
+                    <div class="relative z-10 w-full md:w-1/5 bg-gray-900 p-6 rounded-xl shadow-2xl border border-indigo-700 animate__fadeInUpCustom animate-delay-1-5 transform hover:scale-105 transition-transform duration-300">
+                        <div class="text-5xl mb-4 text-indigo-400 animate__rubberBand animate-delay-2">🧠</div>
+                        <h3 class="text-2xl font-bold text-white mb-2">Orchestrator</h3>
+                        <p class="text-gray-300 text-sm">Manages the audit workflow, delegates tasks, and synthesizes results.</p>
+                    </div>
+
+                    <div class="relative z-10 text-3xl text-purple-400 hidden md:block animate__fadeIn animate-delay-2-5">→</div>
+                    <div class="relative z-10 text-3xl text-purple-400 md:hidden animate__fadeIn animate-delay-2-5">↓</div>
+
+                    <div class="relative z-10 w-full md:w-1/5 bg-gray-900 p-6 rounded-xl shadow-2xl border border-yellow-600 animate__fadeInUpCustom animate-delay-2-5 transform hover:scale-105 transition-transform duration-300">
+                        <div class="text-5xl mb-4 text-yellow-400 animate__rubberBand animate-delay-3">🔍</div>
+                        <h3 class="text-2xl font-bold text-white mb-2">Reconnaissance</h3>
+                        <p class="text-gray-300 text-sm">Identifies web technologies, headers, and collects initial site data.</p>
+                    </div>
+
+                    <div class="relative z-10 text-3xl text-purple-400 hidden md:block animate__fadeIn animate-delay-3-5">→</div>
+                    <div class="relative z-10 text-3xl text-purple-400 md:hidden animate__fadeIn animate-delay-3-5">↓</div>
+
+                    <div class="relative z-10 w-full md:w-1/5 bg-gray-900 p-6 rounded-xl shadow-2xl border border-red-700 animate__fadeInUpCustom animate-delay-3-5 transform hover:scale-105 transition-transform duration-300">
+                        <div class="text-5xl mb-4 text-red-400 animate__rubberBand animate-delay-4">🚨</div>
+                        <h3 class="text-2xl font-bold text-white mb-2">CVE Auditor</h3>
+                        <p class="text-gray-300 text-sm">Performs detailed CVE lookups for identified technologies.</p>
+                    </div>
+
+                    <div class="relative z-10 text-3xl text-purple-400 hidden md:block animate__fadeIn animate-delay-4-5">→</div>
+                    <div class="relative z-10 text-3xl text-purple-400 md:hidden animate__fadeIn animate-delay-4-5">↓</div>
+
+                     <div class="relative z-10 w-full md:w-1/5 bg-gray-900 p-6 rounded-xl shadow-2xl border border-green-700 animate__fadeInUpCustom animate-delay-4-5 transform hover:scale-105 transition-transform duration-300">
+                        <div class="text-5xl mb-4 text-green-400 animate__rubberBand animate-delay-5">📝</div>
+                        <h3 class="text-2xl font-bold text-white mb-2">Report Generator</h3>
+                        <p class="text-gray-300 text-sm">Compiles all findings into a comprehensive, actionable report.</p>
+                    </div>
+                </div>
+                <p class="text-lg text-gray-400 mt-16 animate__animated animate__fadeInUpCustom animate-delay-5-5">
+                    Each agent works autonomously and collaboratively, communicating via <span class="font-bold text-purple-400">Coral Protocol</span>, ensuring a thorough and efficient security analysis.
+                </p>
+            </div>
+        </section>
+        <section class="py-20 bg-gray-900 text-center relative overflow-hidden animate-on-scroll animate__fadeInUp">
+            <div class="absolute inset-0 z-0 opacity-10" style="background-image: url('https://source.unsplash.com/random/1920x1080?blockchain,decentralized-network'); filter: blur(3px) brightness(0.6);"></div>
+            <div class="container mx-auto px-6 relative z-10">
+                <h2 class="text-4xl lg:text-5xl font-extrabold mb-6 text-white animate__fadeInDown animate-delay-0-5">
+                    Why Soenlis is a <span class="gradient-text">Best Use of Coral Protocol</span>
+                </h2>
+                <p class="text-xl lg:text-2xl text-gray-300 mb-12 max-w-4xl mx-auto animate__fadeInUp animate-delay-1">
+                    Soenlis exemplifies the power and potential of Coral Protocol by leveraging its core strengths for a truly decentralized and robust security solution.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 max-w-6xl mx-auto">
+                    <div class="bg-gray-800 p-8 rounded-xl shadow-2xl border border-indigo-700 animate__fadeInUpCustom animate-delay-1-5 transform hover:scale-105 transition-transform duration-300">
+                        <div class="text-5xl mb-4 text-indigo-400 animate__animated animate__heartBeat animate__infinite animate-delay-2">🤝</div>
+                        <h3 class="text-2xl font-bold text-white mb-3">Seamless Agent Collaboration</h3>
+                        <p class="text-gray-300 text-base">Coral Protocol provides the backbone for our agents (Orchestrator, Recon, CVE, Report) to communicate and coordinate effortlessly, ensuring complex tasks are broken down and executed efficiently.</p>
+                    </div>
+                    <div class="bg-gray-800 p-8 rounded-xl shadow-2xl border border-purple-700 animate__fadeInUpCustom animate-delay-2 transform hover:scale-105 transition-transform duration-300">
+                        <div class="text-5xl mb-4 text-purple-400 animate__animated animate__heartBeat animate__infinite animate-delay-2-5">🛡️</div>
+                        <h3 class="text-2xl font-bold text-white mb-3">Decentralized & Secure Interactions</h3>
+                        <p class="text-gray-300 text-base">By utilizing Coral's decentralized architecture, agent interactions within Soenlis are inherently more secure, transparent, and resilient against single points of failure, crucial for security auditing.</p>
+                    </div>
+                    <div class="bg-gray-800 p-8 rounded-xl shadow-2xl border border-green-700 animate__fadeInUpCustom animate-delay-2-5 transform hover:scale-105 transition-transform duration-300">
+                        <div class="text-5xl mb-4 text-green-400 animate__animated animate__heartBeat animate__infinite animate-delay-3">💡</div>
+                        <h3 class="text-2xl font-bold text-white mb-3">Scalable & Modular Innovation</h3>
+                        <p class="text-gray-300 text-base">Coral allows us to easily add or modify specialist agents for new scanning techniques or data sources. This modularity makes Soenlis highly scalable and adaptable to evolving cybersecurity threats.</p>
+                    </div>
+                </div>
+                <p class="text-lg text-gray-400 mt-16 animate__animated animate__fadeInUpCustom animate-delay-3-5">
+                    Our successful implementation of Coral Protocol's multi-agent capabilities for a practical, real-world cybersecurity application showcases its power and flexibility in agentic systems.
+                </p>
+            </div>
+        </section>
+        <section id="features" class="py-20 bg-gray-900 animate-on-scroll animate__fadeInUp">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-4xl lg:text-5xl font-extrabold mb-12 text-white animate__fadeInDown animate-delay-0-5">Key Features</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                    <div class="bg-gray-800 p-8 rounded-lg shadow-xl hover:shadow-2xl transition duration-300 transform hover:-translate-y-2 animate__fadeInUpCustom animate-delay-1">
+                        <div class="text-5xl mb-4 gradient-text animate__animated animate__pulse animate__infinite">🛡️</div>
+                        <h3 class="text-2xl font-bold mb-4 text-white">AI-Powered Vulnerability Detection</h3>
+                        <p class="text-gray-300">Utilizes advanced AI models to identify and analyze web vulnerabilities with high accuracy.</p>
+                    </div>
+                    <div class="bg-gray-800 p-8 rounded-lg shadow-xl hover:shadow-2xl transition duration-300 transform hover:-translate-y-2 animate__fadeInUpCustom animate-delay-1-5">
+                        <div class="text-5xl mb-4 gradient-text animate__animated animate__pulse animate__infinite animate-delay-0-5">🤖</div>
+                        <h3 class="text-2xl font-bold mb-4 text-white">Multi-Agent Orchestration (Coral Protocol)</h3>
+                        <p class="text-gray-300">Leverages a sophisticated multi-agent architecture via Coral Protocol for collaborative scanning and reporting.</p>
+                    </div>
+                    <div class="bg-gray-800 p-8 rounded-lg shadow-xl hover:shadow-2xl transition duration-300 transform hover:-translate-y-2 animate__fadeInUpCustom animate-delay-2">
+                        <div class="text-5xl mb-4 gradient-text animate__animated animate__pulse animate__infinite animate-delay-1">⚡</div>
+                        <h3 class="text-2xl font-bold mb-4 text-white">Blazing Fast Scans (Groq Integration)</h3>
+                        <p class="text-gray-300">Accelerated AI inference with Groq API ensures rapid and efficient security assessments.</p>
+                    </div>
+                    <div class="bg-gray-800 p-8 rounded-lg shadow-xl hover:shadow-2xl transition duration-300 transform hover:-translate-y-2 animate__fadeInUpCustom animate-delay-2-5">
+                        <div class="text-5xl mb-4 gradient-text animate__animated animate__pulse animate__infinite animate-delay-1-5">📊</div>
+                        <h3 class="text-2xl font-bold mb-4 text-white">Automated Reporting (PDF)</h3>
+                        <p class="text-gray-300">Generates comprehensive, easy-to-understand PDF reports of identified vulnerabilities and recommendations.</p>
+                    </div>
+                    <div class="bg-gray-800 p-8 rounded-lg shadow-xl hover:shadow-2xl transition duration-300 transform hover:-translate-y-2 animate__fadeInUpCustom animate-delay-3">
+                        <div class="text-5xl mb-4 gradient-text animate__animated animate__pulse animate__infinite animate-delay-2">☁️</div>
+                        <h3 class="text-2xl font-bold mb-4 text-white">Scalable Cloud Deployment (Vultr)</h3>
+                        <p class="text-gray-300">Deployed on Vultr's robust infrastructure for high availability and scalability.</p>
+                    </div>
+                    <div class="bg-gray-800 p-8 rounded-lg shadow-xl hover:shadow-2xl transition duration-300 transform hover:-translate-y-2 animate__fadeInUpCustom animate-delay-3-5">
+                        <div class="text-5xl mb-4 gradient-text animate__animated animate__pulse animate__infinite animate-delay-2-5">🔍</div>
+                        <h3 class="text-2xl font-bold mb-4 text-white">CVE Database & Tech Detection</h3>
+                        <p class="text-gray-300">Integrates with CVE databases and identifies website technologies for targeted scanning.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="py-20 bg-gray-800 animate-on-scroll animate__fadeInUp">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-4xl lg:text-5xl font-extrabold mb-12 gradient-text animate__fadeInDown animate-delay-0-5">
+                    Frequently Asked Questions
+                </h2>
+                <div class="max-w-4xl mx-auto text-left">
+                    <div class="faq-item animate__fadeInUpCustom animate-delay-1">
+                        <div class="faq-question">
+                            <h3>What is Soenlis?</h3>
+                            <svg class="faq-toggle-icon w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Soenlis is an intelligent web security scanner, designed for the <span class="font-bold text-purple-400">Raise Your Hack 2025</span> hackathon. It utilizes an advanced multi-agent architecture and AI to identify vulnerabilities, detect web technologies, and generate detailed audit reports. Its goal is to provide precise and rapid security assessments for developers, pentesters, businesses, and students.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item animate__fadeInUpCustom animate-delay-1-5">
+                        <div class="faq-question">
+                            <h3>Why is Soenlis a "Best Use of Coral Protocol"?</h3>
+                            <svg class="faq-toggle-icon w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Soenlis excels in its use of Coral Protocol by leveraging its ability to orchestrate a team of specialized AI agents. Rather than a monolithic approach, Soenlis breaks down the audit into tasks managed by dedicated agents (Orchestrator, Reconnaissance, CVE Auditor, Report Generator), each communicating securely and efficiently via Coral. This demonstrates Coral's power for decentralized collaboration, modularity, and scalability in a complex cybersecurity system, embodying the very essence of innovation sought by Coral Protocol.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item animate__fadeInUpCustom animate-delay-2">
+                        <div class="faq-question">
+                            <h3>What technologies does Soenlis use?</h3>
+                            <svg class="faq-toggle-icon w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Soenlis is built on a modern technology stack including:</p>
+                            <ul class="list-disc list-inside ml-4 mt-2 text-gray-400">
+                                <li><span class="font-bold text-gray-200">Coral Protocol:</span> For orchestration and communication between AI agents.</li>
+                                <li><span class="font-bold text-gray-200">Groq API & Llama 3.1:</span> For accelerating AI inferences and intelligent data analysis.</li>
+                                <li><span class="font-bold text-gray-200">Python:</span> Primary language for the backend and agent logic.</li>
+                                <li><span class="font-bold text-gray-200">Vultr:</span> For scalable cloud deployment of our infrastructure.</li>
+                                <li><span class="font-bold text-gray-200">Wappalyzer & CVE Databases:</span> For technology detection and known vulnerability lookups.</li>
+                                <li><span class="font-bold text-gray-200">HTML/CSS (TailwindCSS) & JavaScript:</span> For the web user interface and interactions.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="faq-item animate__fadeInUpCustom animate-delay-2-5">
+                        <div class="faq-question">
+                            <h3>How does Soenlis ensure scan security?</h3>
+                            <svg class="faq-toggle-icon w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Soenlis operates in an ethical mode, prioritizing non-intrusiveness. Our system is designed to collect passive information and analyze public data or data accessible via non-destructive methods. Coral Protocol's multi-agent architecture also ensures that communications between our components are secure and resilient. Scans focus on detection and reporting, without active exploitation of vulnerabilities.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item animate__fadeInUpCustom animate-delay-3">
+                        <div class="faq-question">
+                            <h3>Who are we?</h3>
+                            <svg class="faq-toggle-icon w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Soenlis is the result of the collaborative work of Baptiste Decagny and his colleague Uramix. We are a team passionate about web development, artificial intelligence, and cybersecurity. Baptiste Decagny, an 18-year-old student, is the initial creator of Soenlis. Uramix brings complementary expertise and vision to strengthen the project. Together, we push the boundaries of innovation to build next-generation security solutions.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        </main>
+
+    <footer class="bg-gray-950 p-8 text-center text-gray-400 border-t border-gray-700 animate__animated animate__fadeInUp animate-delay-0-5">
+        <div class="container mx-auto">
+            <p>© 2025 Soenlis. All rights reserved. A project created for <span class="font-bold text-purple-300">Raise Your Hack 2025</span>.</p>
+            <p class="mt-2">Innovated by <a href="https://github.com/Baptium" target="_blank" class="text-indigo-400 hover:underline">Baptiste Decagny</a> and Uramix. Powered by AI and a multi-agent architecture.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const scanUrlInput = document.getElementById('scanUrlInput');
+            const startScanButton = document.getElementById('startScanButton');
+            const scanStatus = document.getElementById('scanStatus');
+            const scanResultsDiv = document.getElementById('scanResults');
+            const summaryContentDiv = document.getElementById('summaryContent');
+            const downloadButtonContainer = document.getElementById('downloadButtonContainer');
+
+            // --- Scroll-triggered animations ---
+            const animateOnScrollElements = document.querySelectorAll('.animate-on-scroll');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const target = entry.target;
+                        // Add animate.css class to trigger animation
+                        if (!target.classList.contains('animate__animated')) {
+                            target.classList.add('animate__animated');
+                        }
+                        // For nested elements, trigger their animations as well
+                        target.querySelectorAll('[class*="animate-delay-"]').forEach(el => {
+                            if (!el.classList.contains('animate__animated')) {
+                                el.classList.add('animate__animated');
+                            }
+                        });
+                        observer.unobserve(target); // Only animate once
+                    }
+                });
+            }, {
+                threshold: 0.1 // Trigger when 10% of the element is visible
+            });
+
+            animateOnScrollElements.forEach(element => {
+                observer.observe(element);
+            });
+
+            // --- Scan button logic ---
+            startScanButton.addEventListener('click', async () => {
+                const url = scanUrlInput.value.trim();
+                if (!url) {
+                    scanStatus.textContent = 'Please enter a valid URL.';
+                    scanStatus.className = 'mt-4 text-left text-sm text-red-400';
+                    return;
+                }
+
+                scanStatus.textContent = 'Initiating scan... This may take a few moments.';
+                scanStatus.className = 'mt-4 text-left text-sm text-yellow-400 animate-pulse';
+                startScanButton.disabled = true;
+                startScanButton.textContent = 'Scanning...';
+                scanResultsDiv.classList.add('hidden');
+                summaryContentDiv.innerHTML = '';
+                downloadButtonContainer.innerHTML = '';
+
+                try {
+                    // *** IMPORTANT: REPLACE THIS URL WITH YOUR VULTR ENDPOINT IN PRODUCTION ***
+                    const response = await fetch('http://localhost:5000/api/scan', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ url: url }),
+                    });
+
+                    if (!response.ok) {
+                        const errorData = await response.json();
+                        throw new Error(errorData.details || 'An unknown error occurred during the scan.');
+                    }
+
+                    const result = await response.json();
+                    displayScanResults(result, url);
+                    scanStatus.textContent = 'Scan completed successfully!';
+                    scanStatus.className = 'mt-4 text-left text-sm text-green-400';
+
+                } catch (error) {
+                    console.error('Scan error:', error);
+                    scanStatus.textContent = `Scan error: ${error.message}`;
+                    scanStatus.className = 'mt-4 text-left text-sm text-red-400';
+                } finally {
+                    startScanButton.disabled = false;
+                    startScanButton.textContent = 'Start Scan';
+                }
+            });
+
+            function displayScanResults(report, url) {
+                scanResultsDiv.classList.remove('hidden');
+
+                // Display summary
+                const summary = report.executive_summary?.overall_assessment || "No summary available.";
+                summaryContentDiv.innerHTML = `<p>${summary}</p>`;
+
+                // Create download button
+                if (report.html_report_base64) {
+                    const downloadButton = document.createElement('button');
+                    downloadButton.innerHTML = `
+                        <svg class="w-5 h-5 mr-2 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                        Download Full Report (.html)
+                    `;
+                    downloadButton.className = "scan-button bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-75 text-base w-full";
+
+                    downloadButton.onclick = () => {
+                        try {
+                            // Decode Base64 string to binary
+                            const byteCharacters = atob(report.html_report_base64);
+                            const byteNumbers = new Array(byteCharacters.length);
+                            for (let i = 0; i < byteCharacters.length; i++) {
+                                byteNumbers[i] = byteCharacters.charCodeAt(i);
+                            }
+                            const byteArray = new Uint8Array(byteNumbers);
+
+                            // Create a Blob
+                            const blob = new Blob([byteArray], {type: 'text/html'});
+
+                            // Create a download link
+                            const link = document.createElement('a');
+                            link.href = URL.createObjectURL(blob);
+                            const domain = new URL(url).hostname.replace(/www./, '');
+                            link.download = `Soenlis_Audit_${domain}.html`;
+
+                            // Simulate click to trigger download
+                            document.body.appendChild(link);
+                            link.click();
+                            document.body.removeChild(link);
+
+                        } catch (e) {
+                            console.error("Error creating download link:", e);
+                            scanStatus.textContent = "Failed to create download link.";
+                            scanStatus.className = 'mt-4 text-left text-sm text-red-400';
+                        }
+                    };
+                    downloadButtonContainer.appendChild(downloadButton);
+                }
+            }
+
+            // FAQ Toggle Logic
+            document.querySelectorAll('.faq-question').forEach(question => {
+                question.addEventListener('click', () => {
+                    const faqItem = question.closest('.faq-item');
+                    faqItem.classList.toggle('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
