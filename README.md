@@ -1,181 +1,234 @@
 # Soenlis.ai: Intelligent Web Security Scanner
 
-## Ignite Your Vision. Build the Future.
+## 🚀 Ignite Your Vision. Build the Future.
 
-[cite_start]Soenlis.ai is an intelligent web security scanner developed for the **Raise Your Hack 2025** hackathon[cite: 1]. [cite_start]It leverages a cutting-edge multi-agent architecture powered by **Coral Protocol** [cite: 1] [cite_start]and advanced AI models (Llama 3.1, Groq) [cite: 1] to provide comprehensive and precise security audits for web applications. [cite_start]Deployed on **Vultr** infrastructure[cite: 1], Soenlis aims to redefine web security by offering automated, efficient, and ethical vulnerability detection.
+**Soenlis.ai** is an intelligent web security scanner developed for the **Raise Your Hack 2025** hackathon. It leverages a cutting-edge **multi-agent architecture** powered by **Coral Protocol** and advanced AI models (Llama 3.1, Groq) to provide comprehensive and precise security audits for web applications.
 
+Soenlis redefines web security by offering **automated, ethical, and blazing-fast vulnerability detection** in a single click.
 
+---
 
 ## ✨ Key Features
 
-* [cite_start]**AI-Powered Vulnerability Detection:** Utilizes advanced AI models (Llama 3.1, Groq) to identify and analyze web vulnerabilities with high accuracy and speed[cite: 1].
+- **AI-Powered Vulnerability Detection** Utilizes advanced models (Llama 3.1, Groq) to identify and analyze vulnerabilities with high precision.
 
-* [cite_start]**Multi-Agent Orchestration (Coral Protocol):** Employs a sophisticated multi-agent architecture where specialized AI agents collaborate seamlessly via Coral Protocol for enhanced scanning and reporting[cite: 1].
+- **Multi-Agent Orchestration (Coral Protocol)** Modular agents (Orchestrator, Reconnaissance, CVE Auditor, Report Generator) collaborate in real-time.
 
-* [cite_start]**Blazing Fast Scans (Groq Integration):** Accelerated AI inference with Groq API ensures rapid and efficient security assessments[cite: 1].
+- **Blazing Fast Scans (Groq Integration)** Groq API ensures ultra-low latency and rapid analysis.
 
-* [cite_start]**Automated Reporting:** Generates comprehensive, easy-to-understand HTML reports of identified vulnerabilities and recommendations[cite: 1].
+- **Automated HTML Reporting** Professional, user-friendly reports with actionable recommendations.
 
-* [cite_start]**Scalable Cloud Deployment (Vultr):** Designed for high availability and scalability, deployed on Vultr's robust cloud infrastructure[cite: 1].
+- **Scalable Cloud Deployment (Vultr)** High availability and resilience.
 
-* [cite_start]**CVE Database & Tech Detection:** Integrates with Wappalyzer for technology fingerprinting and cross-references with CVE databases for known vulnerability lookups[cite: 1].
+- **CVE Database & Tech Detection** Wappalyzer-based fingerprinting and CVE lookups.
 
-* [cite_start]**Ethical Scanning Mode:** Prioritizes non-intrusiveness, focusing on passive information gathering and non-destructive analysis[cite: 1].
+- **Ethical Scanning Mode** Prioritizes passive information gathering and non-destructive analysis.
 
-## 🧠 The Soenlis Multi-Agent Architecture
+---
 
-[cite_start]At the heart of Soenlis lies a dynamic, collaborative system of specialized AI agents, orchestrated by Coral Protocol[cite: 1], to deliver unparalleled precision in web security audits. Each agent performs a critical role in the auditing pipeline:
+## 🧠 Multi-Agent Architecture
 
-1.  [cite_start]**Orchestrator Agent:** Manages the entire audit workflow, delegates tasks to specialist agents, and synthesizes final results[cite: 1].
+At the heart of Soenlis lies a dynamic system of specialized AI agents:
 
-2.  [cite_start]**Reconnaissance Agent:** Identifies web technologies, analyzes HTTP headers, and collects initial site data from the target URL[cite: 1].
+```
+🧠 Orchestrator Agent: Manages the audit workflow, delegates tasks, synthesizes results.
+🔍 Reconnaissance Agent: Detects technologies and performs initial site analysis.
+🚨 CVE Auditor Agent: Looks up known vulnerabilities (CVE database).
+📝 Report Generator Agent: Creates detailed, actionable HTML reports.
+```
 
-3.  [cite_start]**CVE Auditor Agent:** Performs detailed CVE (Common Vulnerabilities and Exposures) lookups for identified technologies and their versions[cite: 1].
+Agents communicate via **Coral Protocol** for secure and decentralized orchestration.
 
-4.  [cite_start]**Report Generator Agent:** Compiles all findings, including vulnerabilities and recommendations, into a comprehensive and actionable HTML report[cite: 1].
+---
 
-[cite_start]This modular design allows Soenlis to be highly scalable, efficient, and adaptable to new threats and scanning techniques[cite: 1].
+## 🌐 Web Interface
 
-## 🚀 Setup Guide
+```markdown
+![Web Interface Screenshot](.:assetst/website.png)
+```
 
-To get Soenlis.ai up and running, you need to set up the Coral Protocol server, the Coral Interface Agent, and then the Soenlis backend (Orchestrator, Recon, CVE agents) and frontend.
+Soenlis provides a modern web UI for initiating scans and viewing results. Enter a URL and launch an audit instantly.
+
+---
+
+## 📄 Sample HTML Audit Report
+
+```markdown
+![Audit HTML Report Screenshot](./assets/rapport_html.PNG)
+```
+
+Each scan generates a professional HTML report summarizing:
+
+```
+- Detected technologies
+- Security headers assessment
+- Vulnerabilities with severity levels
+- Remediation steps
+```
+
+---
+
+## 🔥 Why Raise Your Hack Chose Soenlis
+
+Soenlis was created specifically for **Raise Your Hack 2025** to demonstrate:
+
+```
+- Decentralized agent collaboration using Coral Protocol
+- AI-driven vulnerability detection
+- Scalable and modular security scanning pipelines
+```
+
+This project embodies innovation in web security automation.
+
+---
+
+## 🛠️ Setup Guide
 
 ### Prerequisites
 
-* **Docker Desktop:** Required for running the Coral Server. [Install Docker Desktop](https://www.docker.com/products/docker-desktop/)
+```
+- Docker Desktop: https://www.docker.com/products/docker-desktop
+- Python 3.9+: https://www.python.org/downloads/
+- uv (Ultra-fast Python package manager): https://docs.astral.sh/uv/install
+- Groq API Key: https://console.groq.com/keys
+- Vulners API Key (Optional): https://vulners.com/
+```
 
-* **Python 3.9+:** Recommended for Soenlis.
+---
 
-* **`uv` (Ultrafast Python package installer and runner):** Replaces `pip` and `venv` for faster dependency management. [Install `uv`]([https://docs.astral.sh/uv/install/](https://docs.astral.sh/uv/install/))
+### 1️⃣ Clone the Soenlis Repository
 
-* **Groq API Key:** Obtain one from [Groq Cloud](https://console.groq.com/keys) for AI model inference.
+```bash
+git clone https://github.com/YourRepo/Soenlis.ai.git
+cd Soenlis.ai
+```
 
-* **VULNERS_API_KEY (Optional but Recommended):** For extended CVE lookup capabilities beyond mock data. Register at [Vulners.com](https://vulners.com/).
+---
 
-### Step 1: Clone the Soenlis Repository
+### 2️⃣ Setup Python Environment
 
-First, clone the Soenlis project repository:
+```bash
+uv venv
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+uv pip install -r requirements.txt
+```
 
-```git clone https://github.com/YourRepo/Soenlis.ai.git # Replace with actual repo URL```
-```cd Soenlis.ai```
+Create a `.env` file in the project root:
 
-### Step 2: Set up Soenlis Python Environment and `.env` File
+```env
+# Coral Protocol
+CORAL_SSE_URL=http://localhost:5555/api/sse
+CORAL_AGENT_ID=soenlis-orchestrator-agent
+RECON_AGENT_ID=soenlis-recon-agent
+CVE_AGENT_ID=soenlis-cve-agent
 
-Create and activate a Python virtual environment using `uv`, then install dependencies:
+# Groq API
+API_KEY=YOUR_GROQ_API_KEY
+MODEL_NAME=llama3-70b-8192
 
-```uv venv```
-```source .venv/bin/activate # On Windows: .venv\Scripts\activate```
-```uv pip install -r requirements.txt```
+# Optional Vulners API
+VULNERS_API_KEY=YOUR_VULNERS_API_KEY
+```
 
-Next, create a `.env` file in the root of the `Soenlis.ai` directory and populate it with the following environment variables:
+---
 
-`# Coral Protocol Configuration`
-```CORAL_SSE_URL=http://localhost:5555/api/sse # Default Coral Server SSE URL```
+### 3️⃣ Install & Run Coral Server
 
-```# Soenlis Agent IDs (Must be unique within your Coral setup)```
-```# You can choose any unique strings here.```
-```CORAL_AGENT_ID=soenlis-orchestrator-agent # This is the Orchestrator's ID```
-```RECON_AGENT_ID=soenlis-recon-agent```
-```CVE_AGENT_ID=soenlis-cve-agent```
-```REPORT_AGENT_ID=soenlis-report-agent # Not directly used in .py but good for consistency```
+Clone and set up Coral Server:
 
-`# Groq API Key for LLM (Llama 3.1)`
-```API_KEY=YOUR_GROQ_API_KEY_HERE```
-```MODEL_NAME=llama3-70b-8192 # Recommended model for best performance```
+```bash
+git clone https://github.com/Coral-Protocol/coral-server.git
+cd coral-server
+docker pull coralprotocol/coral-server:latest
 
-```# Vulners API Key (Optional but recommended for real CVE data)```
-```VULNERS_API_KEY=YOUR_VULNERS_API_KEY_HERE # Get from vulners.com```
+# Run Coral Server
+mkdir -p ~/coral_server_config  # On Linux/macOS
+# Windows: mkdir C:\coral_server_config
+docker run -p 5555:5555 -v ~/coral_server_config:/config coralprotocol/coral-server:latest
+```
 
-### Step 3: Run the Coral Server (using Docker)
+---
 
-The Coral Server is the backbone for the Multi-Party Computation (MCP) and agent communication. It runs as a Docker container.
+### 4️⃣ Install & Run Coral Interface Agent
 
-1.  **Pull the Docker image:**
-    ```docker pull coralprotocol/coral-server:latest```
-2.  **Create a volume for configuration (optional but recommended):**
-    If you don't have it already, create a directory for Coral Server's configuration on your host machine.
-    * On Linux/macOS: ```mkdir -p ~/coral_server_config```
-    * On Windows (PowerShell): ```New-Item -ItemType Directory -Force -Path "C:\coral_server_config"```
-3.  **Run the Coral Server:**
-    Navigate to the directory where you want to store server data (e.g., your project's `coral-server` folder, or just use a generic path).
-    Replace `C:\Users\johnd\Desktop\hackathon_setup\soenlis-ryh2025\coral-server\src\main\resources` with the *actual path* to your config directory from the previous step. **Ensure Docker Desktop is running.**
+Clone and set up Coral Interface Agent:
 
-    `# For Windows (PowerShell, adjust path if necessary):`
-    ```docker run -p 5555:5555 -v C:\coral_server_config:/config coralprotocol/coral-server:latest```
+```bash
+cd ..
+git clone https://github.com/Coral-Protocol/Coral-Interface-Agent.git
+cd Coral-Interface-Agent
+uv venv
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+uv pip install -r requirements.txt
+```
 
-    `# For Linux/macOS:`
-    ```docker run -p 5555:5555 -v ~/coral_server_config:/config coralprotocol/coral-server:latest```
+Create `.env` in this directory:
 
-    The server should start and log messages indicating it's ready on port `5555`
+```env
+CORAL_AGENT_ID=coral-interface-agent
+CORAL_SSE_URL=http://localhost:5555/api/sse
+```
 
-### Step 4: Run the Coral Interface Agent
+Run the agent:
 
-The Coral Interface Agent is a separate project that provides the `send_message`, `create_thread`, `wait_for_mentions` tools that Soenlis agents use.
+```bash
+./run_agent.sh src/interface_agent.py
+```
 
-1.  **Clone the Coral Interface Agent repository:**
-    ```cd .. # Go up to the parent directory if you're inside Soenlis.ai```
-    ```git clone https://github.com/Coral-Protocol/Coral-Interface-Agent.git```
-    ```cd Coral-Interface-Agent```
-2.  **Set up its Python environment and dependencies:**
-    ```uv venv```
-    ```source .venv/bin/activate # On Windows: .venv\Scripts\activate```
-    ```uv pip install -r requirements.txt```
-3.  **Create a `.env` file** in `Coral-Interface-Agent` with the following:
-    `# Coral Interface Agent Configuration`
-    `CORAL_AGENT_ID=coral-interface-agent # This agent's ID`
-    `CORAL_SSE_URL=http://localhost:5555/api/sse`
-4.  **Run the Interface Agent:**
-    `./run_agent.sh src/interface_agent.py`
-    You should see logs indicating the agent connecting to Coral and listening.
+---
 
-### Step 5: Run Soenlis Agents (Recon & CVE)
+### 5️⃣ Start Soenlis Agents & Backend
 
-These are the specialist agents for Soenlis that will listen for tasks from the Orchestrator. Each should be run in a **separate terminal window**.
+Return to Soenlis directory:
 
-Navigate back to your `Soenlis.ai` project directory:
+```bash
+cd ../Soenlis.ai
+source .venv/bin/activate
+```
 
-```cd ../Soenlis.ai # Go back to your Soenlis.ai project directory```
-```source .venv/bin/activate # Activate Soenlis's virtual environment```
+Run agents (in separate terminals):
 
-**Terminal 1: Run Reconnaissance Agent**
-```python recon_agent.py```
+```bash
+# Terminal 1
+python recon_agent.py
 
-**Terminal 2: Run CVE Agent**
-```python cve_agent.py```
-You should see logs indicating these agents are "connected" and "listening for tasks."
+# Terminal 2
+python cve_agent.py
 
-### Step 6: Run the Soenlis Backend (Flask App)
+# Terminal 3: Start Backend
+python app.py
+```
 
-This is the Flask server that powers the web interface and acts as the main Orchestrator for the audit workflow.
+---
 
-Navigate back to your `Soenlis.ai` project directory if you aren't there, and ensure the virtual environment is active.
+## 🎯 Usage
 
-**Terminal 3: Run Soenlis Flask Backend**
-```python app.py```
-The Flask server will start, typically on `http://127.0.0.1:5000/` or `http://localhost:5000/`. It will also attempt to initialize its connection to Coral.
+1. Open [http://localhost:5000](http://localhost:5000)
+2. Enter a website URL.
+3. Click **Start Scan**.
+4. Download the professional HTML audit report.
 
-## 🌐 Usage
+---
 
-1.  **Open your web browser** and navigate to `http://localhost:5000/`.
-2.  **Enter the URL** of the website you wish to scan in the input field.
-3.  **Click "Start Scan"**.
+## ⚡ Raise Your Hack Showcase
 
-The Orchestrator agent will delegate tasks to the Reconnaissance and CVE agents, process the results, and generate a comprehensive security audit report. The scan status will update on the page, and a download button for the HTML report will appear upon completion.
+```markdown
+![Raise Your Hack Presentation Banner](https://www.google.com/url?sa=i&url=https%3A%2F%2Fcuriousrefuge.com%2Fall-events%2F%2Fraisesummit-raiseyourhack-2025&psig=AOvVaw2MUkyW4NMnpptIgm-RzHTQ&ust=1752043495058000&source=images&cd=vfe&opi=89978449&ved=0CBUQjRxqFwoTCIi_jePUrI4DFQAAAAAdAAAAABAE)
+```
 
+Soenlis was built from the ground up for the **Raise Your Hack 2025 hackathon**, showcasing how **AI + multi-agent systems + Coral Protocol** can revolutionize cybersecurity workflows.
 
+---
 
-The audit report will be generated as an HTML file, providing a detailed overview of detected technologies, vulnerabilities, and recommendations.
+## 👥 Contributors
 
+```
+- Baptiste Decagny – Initial creator, AI integration, multi-agent architecture
+- Uramix – Backend optimization, UX design
+```
 
+---
 
-## 🧑‍💻 Who We Are
+## 📜 License
 
-Soenlis is the result of the collaborative work of **Baptiste Decagny** and his colleague **Uramix**. We are a team passionate about web development, artificial intelligence, and cybersecurity. Baptiste Decagny, an 18-year-old student, is the initial creator of Soenlis. Uramix brings complementary expertise and vision to strengthen the project. Together, we push the boundaries of innovation to build next-generation security solutions for Raise Your Hack 2025.
-
-## 🤝 Contribution
-
-Contributions are welcome! If you have ideas for improvements, bug fixes, or new features, feel free to open an issue or submit a pull request.
-
-## 📄 License
-
-This project is licensed under the MIT License - see the `LICENSE` file for details.
+MIT License. See [LICENSE](LICENSE) for details.
